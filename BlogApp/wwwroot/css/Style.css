@@ -1,0 +1,11 @@
+﻿body{
+    background-color : #808080
+}
+a{
+    text-decoration-line:none;
+}
+
+#avatar {
+    height: 10px !important;
+    width: 10px !important;
+}

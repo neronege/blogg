@@ -1,0 +1,58 @@
+﻿@model Post
+<div class="row">
+    <div class="col-lg-8 ">
+        <div class="p-4 bg-white">
+            <h1 class="h4 mb-4">@Model.PostTitle</h1>
+            <div class="tags">
+                @foreach(var tag in Model.Tags)
+            {
+                <a href="/posts/tag/@tag.Url" class="badge @tag.Color bg-opacity-10 text-@tag.Color mb-2 fw-bold">@tag.TagText</a>
+            }
+            </div>
+            <img src="~/Image/@Model.Image" class="img-fluid rounded" alt="Alternate Text" />
+            <div>@Model.PostContent</div>
+            <div class="bg-white mt-3">
+                <div class="card border-0">
+                    <div class="card-header pb-0">
+                        <h4>@Model.Comments.Count() adet yorum</h4>
+                    </div>
+                    <div class="card-body">
+                        @foreach(var item in Model.Comments)
+                         {
+                            <div class="my-4 d-flex">
+                                <img style="width:60px; height:70px;" class="d-flex img-fluid rounded" src="/Image/@item.user.Image" alt="Alternate Text" />
+                                <div class="mb-2">
+                                    <h5 class="p-1">   @item.user.UserName</h5>
+                                    <span class="p-3 ">@item.CommentText</span>
+                                    <p class="p-3" >@item.PublishedOn</p>
+                                </div>
+                            </div>
+                         }
+                    <hr class="my-4"/>
+                    <div>
+
+                        <h4>Yorum Ekle</h4>
+                        <form action="/posts/AddComment" method="post">
+                            <input type="hidden" name="PostId" value="@Model.PostId" />
+                            <input type="hidden" name="url" value="@Model.Url" />
+                        
+                            <div class="col-md-12">
+                                <label for="CommentText" class="form-label">Yorum</label>
+                                <textarea type="text" name="CommentText" class="form-control" rows="3" id="CommentText"  ></textarea>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">Kaydet</button>
+                            </div>
+                        </form>
+
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 ">
+        <vc:tags-menu></vc:tags-menu>
+        <vc:new-posts></vc:new-posts>
+    </div>
+</div>
